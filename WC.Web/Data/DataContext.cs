@@ -12,6 +12,9 @@ namespace WC.Web.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<DoctorImage> DoctorImages { get; set; }
+        public DbSet<Speciality> Specialities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,6 +23,7 @@ namespace WC.Web.Data
             modelBuilder.Entity<City>().HasIndex(t => t.Name).IsUnique();
             modelBuilder.Entity<Country>().HasIndex(t => t.Name).IsUnique();
             modelBuilder.Entity<Department>().HasIndex(t => t.Name).IsUnique();
+            modelBuilder.Entity<Speciality>().HasIndex(t => t.Name).IsUnique();
         }
     }
 }

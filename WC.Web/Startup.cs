@@ -11,11 +11,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WC.Web.Data;
+using WC.Web.Helpers;
 
 namespace WC.Web
 {
     public class Startup
     {
+        public const string messageDuplicate = "Hay un registro con el mismo nombre";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -36,8 +38,10 @@ namespace WC.Web
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-
-
+            services.AddTransient<SeedDb>();
+            services.AddScoped<IBlobHelper, BlobHelper>();
+            services.AddScoped<IConverterHelper, ConverterHelper>();
+            services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

@@ -73,7 +73,7 @@ namespace WC.Web.Controllers
                     {
                         if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                         {
-                            ModelState.AddModelError(string.Empty, "Existe un registro con el mismo nombre");
+                            ModelState.AddModelError(string.Empty, Startup.messageDuplicate);
                         }
                         else
                         {
