@@ -21,9 +21,17 @@ namespace WC.Common.Entities
         [Required]
         public string LastName { get; set; }
 
-        [DisplayName("Código Anterior")]
-        [MaxLength(20)]
-        public string PreviousCode { get; set; }
+        [DisplayName("Teléfono")]
+        [MaxLength(50)]
+        public string Phone { get; set; }
+
+        [DisplayName("Correo")]
+        [MaxLength(50)]
+        public string Mail { get; set; }
+
+        [DisplayName("Dirección")]
+        [MaxLength(50)]
+        public string Address { get; set; }
 
         public Speciality Speciality { get; set; }
 

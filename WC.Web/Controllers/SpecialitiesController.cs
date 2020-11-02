@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using WC.Web.Models;
 
 namespace WC.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SpecialitiesController : Controller
     {
         private readonly DataContext _context;

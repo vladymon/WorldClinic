@@ -22,9 +22,7 @@ namespace WC.Web.Controllers.API
         [HttpGet]
         public IActionResult GetCountries()
         {
-            return Ok(_context.Countries
-                .Include(c => c.Departments)
-                .ThenInclude(d => d.Cities));
+            return Ok(_context.Countries.Include(c => c.Departments).ThenInclude(d => d.Cities));
         }
     }
 
