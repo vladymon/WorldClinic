@@ -16,11 +16,12 @@ namespace WC.Common.Entities
         [Display(Name = "Imagen")]
         public Guid ImageId { get; set; }
 
-        //TODO: Pending to put the correct paths
+
         [Display(Name = "Image")]
         public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://localhost:44380/images/noimage.png"
+            ? $"https://worldclinic.azurewebsites.net/images/noimage.png"
             : $"https://worldclinic.blob.core.windows.net/specialities/{ImageId}";
 
+        public ICollection<MedicalAppointment> MedicalAppointments { get; set; }
     }
 }

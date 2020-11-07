@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WC.Web.Data;
 
 namespace WC.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201106221948_TableMedicalAppointment")]
+    partial class TableMedicalAppointment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,15 +160,11 @@ namespace WC.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CityId");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CityId");
 
                     b.ToTable("Clinic");
                 });
@@ -261,51 +259,6 @@ namespace WC.Web.Migrations
                     b.ToTable("DoctorImages");
                 });
 
-            modelBuilder.Entity("WC.Common.Entities.MedicalAppointment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CancelDate");
-
-                    b.Property<int?>("ClinicId");
-
-                    b.Property<DateTime>("ConfirmationDate");
-
-                    b.Property<DateTime>("CreateDate");
-
-                    b.Property<int?>("DoctorId");
-
-                    b.Property<int>("IdUser");
-
-                    b.Property<int?>("MedicalAppointmentStatusId");
-
-                    b.Property<int?>("PaymentTypeId");
-
-                    b.Property<float>("Price");
-
-                    b.Property<int?>("ServiceTypeId");
-
-                    b.Property<int?>("SpecialityId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClinicId");
-
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("MedicalAppointmentStatusId");
-
-                    b.HasIndex("PaymentTypeId");
-
-                    b.HasIndex("ServiceTypeId");
-
-                    b.HasIndex("SpecialityId");
-
-                    b.ToTable("MedicalAppointments");
-                });
-
             modelBuilder.Entity("WC.Common.Entities.MedicalAppointmentStatus", b =>
                 {
                     b.Property<int>("Id")
@@ -378,6 +331,53 @@ namespace WC.Web.Migrations
                         .IsUnique();
 
                     b.ToTable("Specialities");
+                });
+
+            modelBuilder.Entity("WC.Web.Data.Entities.MedicalAppointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CancelDate");
+
+                    b.Property<int?>("ClinicId");
+
+                    b.Property<DateTime>("ConfirmationDate");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<int?>("DoctorId");
+
+                    b.Property<int?>("MedicalAppointmentStatusId");
+
+                    b.Property<int?>("PaymentTypeId");
+
+                    b.Property<float>("Price");
+
+                    b.Property<int?>("ServiceTypeId");
+
+                    b.Property<int?>("SpecialityId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClinicId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("MedicalAppointmentStatusId");
+
+                    b.HasIndex("PaymentTypeId");
+
+                    b.HasIndex("ServiceTypeId");
+
+                    b.HasIndex("SpecialityId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MedicalAppointments");
                 });
 
             modelBuilder.Entity("WC.Web.Data.Entities.User", b =>
@@ -509,13 +509,6 @@ namespace WC.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("WC.Common.Entities.Clinic", b =>
-                {
-                    b.HasOne("WC.Common.Entities.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId");
-                });
-
             modelBuilder.Entity("WC.Common.Entities.Department", b =>
                 {
                     b.HasOne("WC.Common.Entities.Country", "Country")
@@ -538,31 +531,35 @@ namespace WC.Web.Migrations
                         .HasForeignKey("DoctorId");
                 });
 
-            modelBuilder.Entity("WC.Common.Entities.MedicalAppointment", b =>
+            modelBuilder.Entity("WC.Web.Data.Entities.MedicalAppointment", b =>
                 {
                     b.HasOne("WC.Common.Entities.Clinic", "Clinic")
-                        .WithMany("MedicalAppointments")
+                        .WithMany()
                         .HasForeignKey("ClinicId");
 
                     b.HasOne("WC.Common.Entities.Doctor", "Doctor")
-                        .WithMany("MedicalAppointments")
+                        .WithMany()
                         .HasForeignKey("DoctorId");
 
                     b.HasOne("WC.Common.Entities.MedicalAppointmentStatus", "MedicalAppointmentStatus")
-                        .WithMany("MedicalAppointments")
+                        .WithMany()
                         .HasForeignKey("MedicalAppointmentStatusId");
 
                     b.HasOne("WC.Common.Entities.PaymentType", "PaymentType")
-                        .WithMany("MedicalAppointments")
+                        .WithMany()
                         .HasForeignKey("PaymentTypeId");
 
                     b.HasOne("WC.Common.Entities.ServiceType", "ServiceType")
-                        .WithMany("MedicalAppointments")
+                        .WithMany()
                         .HasForeignKey("ServiceTypeId");
 
                     b.HasOne("WC.Common.Entities.Speciality", "Speciality")
-                        .WithMany("MedicalAppointments")
+                        .WithMany()
                         .HasForeignKey("SpecialityId");
+
+                    b.HasOne("WC.Web.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WC.Web.Data.Entities.User", b =>

@@ -25,6 +25,7 @@ namespace WC.Web.Data
             await CheckCountriesAsync();
             await CheckRolesAsync();
             await CheckUserAsync("1010", "Vladimir", "Jaco", "vladimir_jaco@hotmail.com", "949140898", "Lima - S.J.L.", UserType.Admin);
+            await CheckRolesAsync();
 
         }
         private async Task CheckRolesAsync()
@@ -32,6 +33,38 @@ namespace WC.Web.Data
             await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
             await _userHelper.CheckRoleAsync(UserType.User.ToString());
             await _userHelper.CheckRoleAsync(UserType.Public.ToString());
+        }
+
+        private async Task CheckSpecialities()
+        {
+            if (!_context.Specialities.Any())
+            {
+                _context.Specialities.Add(new Speciality{ Name = "Perú" });
+                _context.Specialities.Add(new Speciality { Name = " PSIQUIATRIA" });
+                _context.Specialities.Add(new Speciality { Name = " NEUROFONIATRIA" });
+                _context.Specialities.Add(new Speciality { Name = " GINECOLOGIA INFANTO-JUVENIL" });
+                _context.Specialities.Add(new Speciality { Name = " CARDIOLOGIA PEDIATRICA" });
+                _context.Specialities.Add(new Speciality { Name = " OFTALMOLOGIA" });
+                _context.Specialities.Add(new Speciality { Name = " KINESIOLOGIA GENERAL" });
+                _context.Specialities.Add(new Speciality { Name = " ENDOCRINOLOGIA" });
+                _context.Specialities.Add(new Speciality { Name = " REUMATOLOGIA" });
+                _context.Specialities.Add(new Speciality { Name = " OBSTETRICIA" });
+                _context.Specialities.Add(new Speciality { Name = " GASTROENTEROLOGIA" });
+                _context.Specialities.Add(new Speciality { Name = " ORTOPEDIA" });
+                _context.Specialities.Add(new Speciality { Name = " OFTALMOLOGIA INFANTIL" });
+                _context.Specialities.Add(new Speciality { Name = " NEUMOTISIOLOGIA INFANTIL" });
+                _context.Specialities.Add(new Speciality { Name = " NEONATOLOGIA" });
+                _context.Specialities.Add(new Speciality { Name = " BIOTECNOLOGIA" });
+                _context.Specialities.Add(new Speciality { Name = " NEFROLOGIA" });
+                _context.Specialities.Add(new Speciality { Name = " MEDICINA LEGAL" });
+                _context.Specialities.Add(new Speciality { Name = " REPRODUCCION" });
+                _context.Specialities.Add(new Speciality { Name = " BIOQUIMICA" });
+                _context.Specialities.Add(new Speciality { Name = " NEUROFISIOLOGIA" });
+                _context.Specialities.Add(new Speciality { Name = " PEDIATRIA" });
+                _context.Specialities.Add(new Speciality { Name = " ODONTOLOGIA" });
+                _context.Specialities.Add(new Speciality { Name = " CIRUGIA GENERAL" });
+                await _context.SaveChangesAsync();
+            }
         }
 
         private async Task<User> CheckUserAsync(

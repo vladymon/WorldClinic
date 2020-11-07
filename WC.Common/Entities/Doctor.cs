@@ -40,11 +40,13 @@ namespace WC.Common.Entities
         [DisplayName("# Imagen")]
         public int DoctorImagesNumber => DoctorImages == null ? 0 : DoctorImages.Count;
 
-        //TODO: Pending to put the correct paths
+
         [Display(Name = "Imagen")]
         public string ImageFullPath => DoctorImages == null || DoctorImages.Count == 0
-            ? $"https://localhost:44390/images/noimage.png"
+            ? $"https://worldclinic.azurewebsites.net/images/noimage.png"
             : DoctorImages.FirstOrDefault().ImageFullPath;
+
+        public ICollection<MedicalAppointment> MedicalAppointments { get; set; }
 
     }
 }
