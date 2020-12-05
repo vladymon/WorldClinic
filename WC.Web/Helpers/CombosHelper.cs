@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WC.Common.Entities;
 using WC.Web.Data;
 
 namespace WC.Web.Helpers
@@ -33,6 +35,77 @@ namespace WC.Web.Helpers
 
             return list;
         }
+        public IEnumerable<SelectListItem> GetComboCities(int departmentId)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            Department department = _context.Departments
+                .Include(d => d.Cities)
+                .FirstOrDefault(d => d.Id == departmentId);
+            if (department != null)
+            {
+                list = department.Cities.Select(t => new SelectListItem
+                {
+                    Text = t.Name,
+                    Value = $"{t.Id}"
+                })
+                    .OrderBy(t => t.Text)
+                    .ToList();
+            }
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "[Seleccione un ciudad...]",
+                Value = "0"
+            });
+
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetComboCountries()
+        {
+            List<SelectListItem> list = _context.Countries.Select(t => new SelectListItem
+            {
+                Text = t.Name,
+                Value = $"{t.Id}"
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "[Seleccione un país...]",
+                Value = "0"
+            });
+
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetComboDepartments(int countryId)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            Country country = _context.Countries
+                .Include(c => c.Departments)
+                .FirstOrDefault(c => c.Id == countryId);
+            if (country != null)
+            {
+                list = country.Departments.Select(t => new SelectListItem
+                {
+                    Text = t.Name,
+                    Value = $"{t.Id}"
+                })
+                    .OrderBy(t => t.Text)
+                    .ToList();
+            }
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "[Seleccione un departamento...]",
+                Value = "0"
+            });
+
+            return list;
+        }
+
     }
 
 }

@@ -25,7 +25,7 @@ namespace WC.Web.Data
             await CheckCountriesAsync();
             await CheckRolesAsync();
             await CheckUserAsync("1010", "Vladimir", "Jaco", "vladimir_jaco@hotmail.com", "949140898", "Lima - S.J.L.", UserType.Admin);
-            await CheckRolesAsync();
+            await CheckSpecialities();
 
         }
         private async Task CheckRolesAsync()
@@ -88,7 +88,6 @@ namespace WC.Web.Data
                     PhoneNumber = phone,
                     Address = address,
                     Document = document,
-                    City = _context.Cities.FirstOrDefault(),
                     UserType = userType
                 };
 

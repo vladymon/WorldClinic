@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WC.Common.Enums;
 using WC.Web.Data.Entities;
 using WC.Web.Models;
 
@@ -24,6 +25,8 @@ namespace WC.Web.Helpers
         Task LogoutAsync();
 
         Task<SignInResult> ValidatePasswordAsync(User user, string password);
+
+        Task<User> AddUserAsync(AddUserViewModel model, Guid imageId, UserType userType);
 
     }
 

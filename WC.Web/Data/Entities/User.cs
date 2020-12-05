@@ -33,16 +33,13 @@ namespace WC.Web.Data.Entities
 
         [Display(Name = "Imagen")]
         public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://worldclinic.azurewebsites.net/images/noimage.png"
-            : $"https://onsale.blob.core.windows.net/users/{ImageId}";
+            ? $"https://worldclinics.azurewebsites.net/images/noimage.png"
+            : $"https://worldclinics.blob.core.windows.net/users/{ImageId}";
 
         [Display(Name = "User Type")]
         public UserType UserType { get; set; }
 
-
         public DateTime CreateDate { get; set; }
-
-        public City City { get; set; }
 
         [Display(Name = "User")]
         public string FullName => $"{FirstName} {LastName}";

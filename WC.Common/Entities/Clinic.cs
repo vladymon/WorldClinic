@@ -14,8 +14,26 @@ namespace WC.Common.Entities
         [Required]
         public string Name { get; set; }
 
-        public ICollection<MedicalAppointment> MedicalAppointments { get; set; }
+        [Display(Name = "Dirección")]
+        [MaxLength(100, ErrorMessage = "El campo {0} debe contener menos de {1} carateres ")]
+        public string Address { get; set; }
 
+        [Required]
+        public double Longitude { get; set; }
+
+        [Required]
+        public double Latitude { get; set; }
+
+        [Display(Name = "Imagen")]
+        public Guid ImageId { get; set; }
+
+        [Display(Name = "Imagen")]
+        public string ImageFullPath => ImageId == Guid.Empty
+            ? $"https://worldclinics.azurewebsites.net/images/noimage.png"
+            : $"https://worldclinics.blob.core.windows.net/clinics/{ImageId}";
+
+        public ICollection<MedicalAppointment> MedicalAppointments { get; set; }
+        [Required]
         public City City { get; set; }
 
         //public ICollection<Department> Departments { get; set; }

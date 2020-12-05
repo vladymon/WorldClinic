@@ -21,8 +21,7 @@ namespace WC.Web.Data
         public DbSet<MedicalAppointment> MedicalAppointments { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
-
-
+        public DbSet<Clinic> Clinics { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

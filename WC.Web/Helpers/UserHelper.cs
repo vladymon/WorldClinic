@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WC.Common.Enums;
 using WC.Web.Data;
 using WC.Web.Data.Entities;
 using WC.Web.Models;
@@ -50,7 +51,6 @@ namespace WC.Web.Helpers
         public async Task<User> GetUserAsync(string email)
         {
             return await _context.Users
-                .Include(u => u.City)
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
 
@@ -78,6 +78,31 @@ namespace WC.Web.Helpers
             return await _signInManager.CheckPasswordSignInAsync(user, password, false);
         }
 
+        public async Task<User> AddUserAsync(AddUserViewModel model, Guid imageId, UserType userType)
+        {
+            User user = new User
+            {
+                Address = model.Address,
+                Document = model.Document,
+                Email = model.Username,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                ImageId = imageId,
+                PhoneNumber = model.PhoneNumber,
+                UserName = model.Username,
+                UserType = userType
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            if (result != IdentityResult.Success)
+            {
+                return null;
+            }
+
+            User newUser = await GetUserAsync(model.Username);
+            await AddUserToRoleAsync(newUser, user.UserType.ToString());
+            return newUser;
+        }
 
     }
 

@@ -15,7 +15,7 @@ namespace WC.Common.Entities
 
         [Display(Name = "Imagen")]
         public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://worldclinic.azurewebsites.net/images/noimage.png"
-            : $"https://worldclinic.blob.core.windows.net/doctors/{ImageId}";
+            ? $"https://worldclinics.azurewebsites.net/images/noimage.png"
+            : $"https://worldclinics.blob.core.windows.net/doctors/{ImageId}";
     }
 }
